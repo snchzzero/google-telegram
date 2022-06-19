@@ -106,7 +106,10 @@ def db_google_sheets():
              order_number = values['values'][i][1]
              value_dolar = values['values'][i][2]
              value_rub = round(usd * int(value_dolar), 0)
-             delivery_time = values['values'][i][3]
+             #delivery_time = values['values'][i][3]
+             delivery_time = str(values['values'][i][3]).split('.')[2] + "." + \
+                             str(values['values'][i][3]).split('.')[1] + "." + \
+                             str(values['values'][i][3]).split('.')[0]
              with connection.cursor() as cursor:
                  cursor.execute("""
                  INSERT INTO test (number, order_number, value_dolar, value_rub, delivery_time) VALUES

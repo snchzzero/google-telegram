@@ -81,16 +81,28 @@ WSGI_APPLICATION = 'google_sheets_cbr.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'google_sheets',
+#         'USER': 'postgres',
+#         'PASSWORD': '123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'google_sheets',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
+        'NAME': 'daugvuosiphmdc',
+        'USER': 'hnarssxqztnvfc',
+        'PASSWORD': 'a3b0194b434122e114fc48121a3389d2cceedd283072a8459dfa862831dd3920',
+        'HOST': 'ec2-34-247-172-149.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

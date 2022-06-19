@@ -20,6 +20,4 @@ from GoogleSheetsCBR import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls, name='admin'),
-
 ]
-#path('', views.update, name='update'),

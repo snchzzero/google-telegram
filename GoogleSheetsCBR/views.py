@@ -4,29 +4,16 @@ from google_sheets_cbr.config_db import host, user, password, db_name
 from google_sheets_cbr.script import db_google_sheets
 from datetime import datetime
 from .forms import Form_sort
+import os
 
 
 
 def home(request):
-    # внесение данных в модель БД вручную
-    # insert = Models(number_Model = 45, order_Model = 122,
-    #                 value_dolar_Model = 23, value_rub_Model =666,
-    #                 delivery_time_Model = '2022-06-23')
-    # insert.save()
-    # Models.objects.all().delete()
-
-
-    # sort = ModelSort.objects.all()
-    # form = Form_sort(request.POST or None)
-    # if form.is_valid():
-    #     data = form.cleaned_data.get("sorts_Model")
-    # #else:
-    #     #data = "котик"
-
     # функция получения значений из гугл таблицы и курса доллара, автоматическое обновление таблицы
     usd = round(db_google_sheets(), 2)  # возвращает курс доллара
 
     now = datetime.now().strftime("%d.%m.%Y %H:%M:%S")  # получаем текущее время
+
     if request.method == 'GET':
         try:
             connection = psycopg2.connect(
@@ -39,7 +26,7 @@ def home(request):
             # для работы с БД нужно создать объект курсор (для выполнения различных команд SQl)
             with connection.cursor() as cursor:
                 cursor.execute("SELECT version();")
-                # print(f'Server version: {cursor.fetchone()}')  #методо fetchone() возращает либо значание либо None
+                #методо fetchone() возращает либо значание либо None
                 a = cursor.fetchone()
 
             with connection.cursor() as cursor:
@@ -50,7 +37,6 @@ def home(request):
                           {'form': Form_sort(),
                           'cursor': a, 'rows': rows, 'usd': usd, 'now': now})
         except ValueError:
-            # если вводимое название задачи "title" больше 100 символов, то возникает ошибка и мы ее обрабатываем
             return render(request, 'GoogleSheetsCBR/home.html', {'error': 'Error while working with PostgreSQL'})
             # переданы неверные данные. попробуйте еще раз
         finally:
@@ -95,8 +81,6 @@ def home(request):
                                                                      'rows': rows, 'usd': usd,
                                                                      'now': now, 'cursor': a})
 
-
-            #return render(request, 'GoogleSheetsCBR/home.html', {'data': s, 'select': data})
         except ValueError:
             return render(request, 'GoogleSheetsCBR/home.html', {'error': 'Error while working with PostgreSQL'})
         finally:

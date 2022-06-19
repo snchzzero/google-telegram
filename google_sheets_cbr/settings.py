@@ -132,8 +132,10 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
-
+# настройка часового пояса в том случае если сервер запускает не из локальной винды
+#USE_TZ = True
+USE_TZ = False  # по умолчанию тру
+TIME_ZONE = 'Europe/Moscow'  # доп. строчка
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

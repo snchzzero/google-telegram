@@ -1,11 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 import psycopg2
 from google_sheets_cbr.config_db import host, user, password, db_name
 from google_sheets_cbr.script import db_google_sheets
 from datetime import datetime
 from .forms import Form_sort
-import os
-
 
 
 def home(request):

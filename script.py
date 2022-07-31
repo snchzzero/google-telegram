@@ -6,7 +6,7 @@ from datetime import datetime
 
 # для db_google_sheets
 import psycopg2
-from google_sheets_cbr.config_db import host, user, password, db_name
+from config import host, user, password, db_name
 import requests
 import xmltodict
 
@@ -49,7 +49,7 @@ def cbr_usd_api():
             return (value['Value'])
 
 # функция записи данных в БД PostgreSQL
-def db_google_sheets():
+def db_google_sheets(from_name = None):
      try:
          # подключаемся к базе данных
          # создаем объект
@@ -97,6 +97,17 @@ def db_google_sheets():
                  INSERT INTO test (number, order_number, value_dolar, value_rub, delivery_time) VALUES
                  (%s, %s, %s, %s, %s);""", [int(number), int(order_number),
                                             int(value_dolar), value_rub, delivery_time])
+         if from_name == "Telegram":
+             with connection.cursor() as cursor:
+                 cursor.execute("""
+                 SELECT test.number, order_number, delivery_time
+                 FROM test
+                 WHERE delivery_time < CURRENT_DATE
+                 ORDER BY delivery_time""")
+                 l1 = cursor.fetchall()
+                 return (l1)
+         elif from_name == None:
+            return (usd)
 
      except Exception as _ex:
          pass
@@ -105,7 +116,7 @@ def db_google_sheets():
          # закрываем подключение к БД
          if connection:
              connection.close()
-             return (usd)
+
 
 
 

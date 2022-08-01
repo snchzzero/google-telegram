@@ -145,3 +145,4 @@ schedule.every(3600).seconds.do(send_message1)
   /stop  # Отключение рассылки уведомлений
     
 ```
+[Ссылка на Google Sheets документ](https://docs.google.com/spreadsheets/d/1V-lsTLgKAZ7Kn90ARq3K84YsQxkD-h-mML2Xl0VATD8/edit#gid=0)
